@@ -14,7 +14,8 @@
           :key="selectedArticles.number">{{
               selectedArticles.number
           }}
-          <button id="delete-btn" @click="deleteFromSelectedList(index)"><i class="fa-solid fa-trash-can fa-s"></i></button>
+          <button id="delete-btn" @click="deleteFromSelectedList(index)"><i
+              class="fa-solid fa-trash-can fa-s"></i></button>
         </li>
       </ul>
     </section>
@@ -157,6 +158,14 @@ export default {
         {
           number: "K508030-004",
           tools: [883, 820, 199, 773, 507, 561, 176, 628, 766, 691, 887, 872, 272, 27, 22, 372, 12, 325, 302, 304, 851, 860]
+        },
+        {
+          number: "K508030-008",
+          tools: [883, 775, 773, 956, 937, 887, 766, 630, 166, 272, 17, 270, 12, 325, 851, 860, 75, 305, 461, 467]
+        },
+        {
+          number: "K508030-015",
+          tools: [803, 820, 883, 775, 761, 766, 800, 144, 178, 172, 177, 161, 166, 272, 729, 453, 325, 310, 423, 20, 279, 2, 321, 305, 860, 690, 691]
         },
         {
           number: "K508030-044",
