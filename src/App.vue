@@ -5,14 +5,14 @@
   </header>
   <main>
     <section>
-      <h2>Select the articles inside the machine:</h2>
-      <p>/Don't select the removable article/</p>
-      <articleSelector :articles="articlesArray" :buttonChangerValue="true"
-        @article-to-selected-list="selectingArticles" class="center" />
+      <h2>Select the items inside the machine:</h2>
+      <p>/Don't select the removable item/</p>
+      <itemSelector :itemsArray="itemsArray" :buttonChangerValue="true"
+        @item-to-selected-list="selectingitems" />
       <ul>
-        <li class="articleInMachine" v-for="(selectedArticles, index) in selectedArticlesArray"
-          :key="selectedArticles.number">{{
-              selectedArticles.number
+        <li class="itemInMachine" v-for="(selecteditems, index) in selecteditemsArray"
+          :key="selecteditems.number">{{
+              selecteditems.number
           }}
           <button id="delete-btn" @click="deleteFromSelectedList(index)"><i
               class="fa-solid fa-trash-can fa-s"></i></button>
@@ -20,8 +20,8 @@
       </ul>
     </section>
     <section>
-      <h2>Select the removable article:</h2>
-      <articleSelector :articles="articlesArray" :buttonChangerValue="false"
+      <h2>Select the removable item:</h2>
+      <itemSelector :itemsArray="itemsArray" :buttonChangerValue="false"
         @listing-removable-tools="listingRemovableTools" />
       <ul>
         <li class="removable-tool" v-for="removableTools in removableToolsArray" :key="removableTools">
@@ -35,18 +35,18 @@
 </template>
 
 <script>
-import articleSelector from './components/articleSelector.vue'
+import itemSelector from './components/itemSelector.vue'
 
 
 export default {
   name: "App",
   components: {
-    articleSelector
+    itemSelector
   },
   data() {
     return {
-      article: "",
-      articlesArray: [
+      item: "",
+      itemsArray: [
         {
           number: "223-014-00",
           tools: [750, 751, 850, 859, 883]
@@ -157,7 +157,7 @@ export default {
         },
         {
           number: "K508030-004",
-          tools: [883, 820, 199, 773, 507, 561, 176, 628, 766, 691, 887, 872, 272, 27, 22, 372, 12, 325, 302, 304, 851, 860]
+          tools: [820, 199, 773, 507, 561, 176, 883, 628, 766, 691, 887, 872, 272, 27, 22, 372, 12, 325, 302, 304, 851, 860]
         },
         {
           number: "K508030-008",
@@ -177,33 +177,43 @@ export default {
         }
       ],
       buttonChangerValue: 'true',
-      selectedArticlesArray: [],
+      selecteditemsArray: [],
       removableToolsArray: []
     };
   },
   methods: {
-    selectingArticles(index) {
-      this.selectedArticlesArray.push(this.articlesArray[index]);
+    selectingitems(index) {
+      this.selecteditemsArray.push(this.itemsArray[index]);
+      console.log(this.selecteditemsArray);
     },
     deleteFromSelectedList(index) {
-      this.selectedArticlesArray.splice(index, 1);
+      this.selecteditemsArray.splice(index, 1);
+      console.log(this.selecteditemsArray);
     },
     listingRemovableTools(index) {
-      // The selected article tools push into a new array
+      // The selected item tools push into a new array
       let toolsArray = [];
-      this.selectedArticlesArray.map((element) => { toolsArray.push(...element.tools) });
+      this.selecteditemsArray.map((element) => { toolsArray.push(...element.tools) });
+      console.log(toolsArray);
       // Sort the new array elements (remove the duplicates)
       let sortedToolsList = [...new Set(toolsArray)];
-      // Create a variable for the removable article tools list
-      let removableArticle = this.articlesArray[index].tools;
+      console.log(sortedToolsList);
+      // Create a variable for the removable item tools list
+      let removableitem = this.itemsArray[index].tools;
+      console.log(removableitem);
       //  Delete the necessary tools from the removable tools list (Result: we have only the removable tools)
+
+
       sortedToolsList.map((element) => {
-        if (removableArticle.indexOf(element) > 0) {
-          removableArticle.splice(removableArticle.indexOf(element), 1);
+        if (removableitem.indexOf(element) > -1) {
+          removableitem.splice(removableitem.indexOf(element), 1);
         }
+        console.log(removableitem);
       });
+
+
       //Removable tools ascending order
-      this.removableToolsArray = removableArticle.sort(function (a, b) { return a - b });
+      this.removableToolsArray = removableitem.sort(function (a, b) { return a - b });
     }
   }
 };
